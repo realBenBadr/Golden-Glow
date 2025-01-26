@@ -1,0 +1,3 @@
+/* Golden glow favicon */
+background: radial-gradient(circle at center, var(--primary-gold), var(--secondary-gold));
+border-radius: 50%;

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gates of Knowledge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <div class="persian-overlay"></div>
+        <div class="game-container">
+            <!-- Game Header -->
+            <header class="game-header">
+                <div class="stats-bar">
+                    <div class="score-container">
+                        <span class="score-label">Score</span>
+                        <span id="current-score">0</span>
+                    </div>
+                    <div class="level-container">
+                        <span class="level-label">Level</span>
+                        <span id="current-level">1</span>
+                    </div>
+                    <div class="lives-container">
+                        <span class="lives-label">Lives</span>
+                        <span id="remaining-lives">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Game Area -->
+            <main class="game-area">
+                <!-- Gate Animation Container -->
+                <div class="gate-container">
+                    <div class="gate left-gate"></div>
+                    <div class="gate right-gate"></div>
+                </div>
+
+                <!-- Question Container -->
+                <div class="question-container">
+                    <div class="timer-bar">
+                        <div class="timer-progress"></div>
+                    </div>
+                    <p id="question-text" class="question-text">Welcome to Gates of Knowledge!</p>
+                    <div class="answers-grid">
+                        <button class="answer-button" data-index="0"></button>
+                        <button class="answer-button" data-index="1"></button>
+                        <button class="answer-button" data-index="2"></button>
+                        <button class="answer-button" data-index="3"></button>
+                    </div>
+                </div>
+
+                <!-- Lifelines Container -->
+                <div class="lifelines-container">
+                    <button class="lifeline-button" id="fifty-fifty">
+                        <span class="lifeline-icon">50:50</span>
+                    </button>
+                    <button class="lifeline-button" id="hint">
+                        <span class="lifeline-icon">💡</span>
+                    </button>
+                    <button class="lifeline-button" id="skip">
+                        <span class="lifeline-icon">⏭️</span>
+                    </button>
+                </div>
+            </main>
+
+            <!-- Game Messages -->
+            <div class="message-overlay hidden">
+                <div class="message-box">
+                    <h2 class="message-title"></h2>
+                    <p class="message-text"></p>
+                    <div class="message-buttons">
+                        <button class="persian-button continue-button">Continue</button>
+                        <button class="persian-button retry-button">Try Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="TriviaGame.js"></script>
+</body>
+</html> 

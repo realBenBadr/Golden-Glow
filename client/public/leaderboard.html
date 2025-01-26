@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Golden Glow - Leaderboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/leaderboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="persian-overlay"></div>
+    <div id="app">
+        <div class="screen leaderboard-screen">
+            <div class="persian-frame">
+                <header class="persian-header">
+                    <h1 class="mystical-title">Leaderboard</h1>
+                    <div class="persian-ornament"></div>
+                </header>
+
+                <div class="leaderboard-container">
+                    <div class="floating-lights">
+                        <div class="light"></div>
+                        <div class="light"></div>
+                        <div class="light"></div>
+                    </div>
+
+                    <div class="leaderboard-filters">
+                        <button class="persian-button active" data-filter="daily">
+                            <span class="button-glow"></span>
+                            <i class="fas fa-sun"></i>
+                            <span class="button-text">Daily</span>
+                        </button>
+                        <button class="persian-button" data-filter="weekly">
+                            <span class="button-glow"></span>
+                            <i class="fas fa-calendar-week"></i>
+                            <span class="button-text">Weekly</span>
+                        </button>
+                        <button class="persian-button" data-filter="alltime">
+                            <span class="button-glow"></span>
+                            <i class="fas fa-infinity"></i>
+                            <span class="button-text">All Time</span>
+                        </button>
+                    </div>
+
+                    <div class="leaderboard-list">
+                        <!-- Leaderboard entries will be dynamically populated here -->
+                    </div>
+
+                    <div class="user-rank-card">
+                        <div class="rank-label">Your Rank</div>
+                        <div class="rank-value">#0</div>
+                        <div class="rank-score">Score: 0</div>
+                    </div>
+                </div>
+
+                <button class="persian-button back-button" onclick="window.history.back()">
+                    <span class="button-glow"></span>
+                    <i class="fas fa-chevron-left"></i>
+                    <span class="button-text">Return</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/leaderboard.js"></script>
+</body>
+</html> 

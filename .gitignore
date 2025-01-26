@@ -1,0 +1,7 @@
+node_modules
+.env
+
+client/src/games
+client/src/styles
+client/src/js
+

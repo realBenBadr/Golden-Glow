@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Glow - Mystical Games</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/games/path-2048/style.css">
+    <link rel="stylesheet" href="/games/tap-to-earn/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="persian-overlay"></div>
+    <div id="app">
+        <div id="main-menu" class="screen">
+            <div class="persian-frame">
+                <div class="persian-header">
+                    <h1 class="mystical-title">Golden Glow</h1>
+                    <div class="persian-ornament"></div>
+                </div>
+                
+                <div class="menu-container">
+                    <div class="floating-lights">
+                        <div class="light"></div>
+                        <div class="light"></div>
+                        <div class="light"></div>
+                    </div>
+                    
+                    <div class="menu-buttons">
+                        <button id="tap-game-btn" class="persian-button game-button">
+                            <span class="button-glow"></span>
+                            <span class="button-icon flame-icon"></span>
+                            <span class="button-text">Flame of Wisdom</span>
+                            <span class="button-description">Tap to collect mystical flames</span>
+                        </button>
+                        
+                        <button id="path-2048-btn" class="persian-button game-button">
+                            <span class="button-glow"></span>
+                            <span class="button-icon path-icon"></span>
+                            <span class="button-text">Path of Enlightenment</span>
+                            <span class="button-description">Merge tiles to reach enlightenment</span>
+                        </button>
+
+                        <button id="tic-tac-toe-btn" class="persian-button game-button">
+                            <span class="button-glow"></span>
+                            <span class="button-icon"><i class="fas fa-hashtag"></i></span>
+                            <span class="button-text">Marks of Destiny</span>
+                            <span class="button-description">Challenge others in mystical Tic-Tac-Toe</span>
+                        </button>
+                        
+                        <button id="leaderboard-btn" class="persian-button">
+                            <span class="button-glow"></span>
+                            <span class="button-icon trophy-icon"></span>
+                            <span class="button-text">Leaderboard</span>
+                        </button>
+                    </div>
+
+                    <div class="user-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon points-icon"></div>
+                            <span class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon achievements-icon"></div>
+                            <span class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="game-container" class="screen hidden"></div>
+        <div id="tap-game-container" class="screen game-screen hidden">
+            <div class="game-header persian-style">
+                <button class="back-button persian-button">
+                    <span class="button-icon back-icon"></span>
+                    Return to Menu
+                </button>
+                <div class="stats-container">
+                    <div class="stat">
+                        <span class="stat-label">Enlightenment</span>
+                        <span id="tap-score">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Time</span>
+                        <span id="tap-timer">30</span>s
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Combo</span>
+                        <span id="combo-multiplier">1.0x</span>
+                    </div>
+                </div>
+            </div>
+            <div id="tap-game-area" class="game-area"></div>
+        </div>
+
+        <div id="path-2048-container" class="screen game-screen hidden">
+            <div class="game-header persian-style">
+                <button class="back-button persian-button">
+                    <span class="button-icon back-icon"></span>
+                    Return to Menu
+                </button>
+                <div class="scores-container">
+                    <div class="score">Score: <span id="path-score">0</span></div>
+                    <div class="best-score">Best: <span id="path-best-score">0</span></div>
+                </div>
+            </div>
+            <div id="game-grid" class="grid-container"></div>
+        </div>
+
+        <div id="tic-tac-toe-container" class="screen game-screen hidden">
+            <div class="game-header persian-style">
+                <button class="back-button persian-button">
+                    <span class="button-icon back-icon"></span>
+                    Return to Menu
+                </button>
+                <div class="game-status-container">
+                    <h2>Marks of Destiny</h2>
+                </div>
+            </div>
+            <div id="tic-tac-toe-game" class="game-area"></div>
+        </div>
+    </div>
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>

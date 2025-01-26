@@ -1,0 +1,4 @@
+/* Persian ornamental pattern */
+background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+border-radius: 4px;
+opacity: 0.3;
