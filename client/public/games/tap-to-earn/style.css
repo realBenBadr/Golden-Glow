@@ -9,6 +9,9 @@
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 2rem;
+    --header-height: 80px;
+    --header-border-color: rgba(255, 215, 0, 0.3);
+    --header-background: linear-gradient(to right, rgba(26, 35, 126, 0.9), rgba(13, 19, 51, 0.95));
 }
 
 /* Base Layout */
@@ -28,142 +31,66 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
-/* Game Header */
-.game-header.persian-style {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: clamp(0.3rem, 1vw, 0.8rem);
-    gap: 0.5rem;
+/* Game Background */
+.game-background {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    background: rgba(26, 35, 126, 0.2);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--primary-gold);
-    height: clamp(40px, 8vh, 60px);
+    height: 100%;
+    background-image: url('/assets/animations/FOW Game.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    opacity: 0.4;
 }
 
-.back-button.persian-button {
-    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
-    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.8rem, 2vw, 1.2rem);
-    white-space: nowrap;
-    min-width: auto;
-    border-radius: 15px;
-    height: clamp(30px, 5vh, 40px);
-    display: flex;
-    align-items: center;
+.game-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,
+        rgba(26, 35, 126, 0.9),
+        rgba(13, 19, 51, 0.95)
+    );
+    z-index: 2;
 }
 
-.button-icon {
-    display: inline-block;
-    margin-right: 0.3rem;
-    vertical-align: middle;
-    transform: scale(0.8);
-}
-
-.stats-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: clamp(0.3rem, 1vw, 0.8rem);
-    flex-wrap: nowrap;
-    flex: 1;
-}
-
-.stat {
-    flex: 1;
-    min-width: clamp(60px, 15vw, 120px);
-    padding: clamp(0.2rem, 0.8vw, 0.5rem);
-    background: rgba(255, 215, 0, 0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 215, 0, 0.2);
+/* Game Elements */
+#tap-game-area {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.stat-label {
-    font-size: clamp(0.6rem, 1.2vw, 0.8rem);
-    margin-bottom: 0.1rem;
-    letter-spacing: 1px;
-}
-
-#tap-score, #tap-timer, #combo-multiplier {
-    font-size: clamp(0.8rem, 1.5vw, 1rem);
-    line-height: 1;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .game-header.persian-style {
-        flex-direction: row;
-        padding: 0.4rem;
-        height: auto;
-        min-height: 40px;
-    }
-
-    .stats-container {
-        justify-content: flex-end;
-        width: auto;
-    }
-
-    .stat {
-        text-align: center;
-        min-width: clamp(50px, 20vw, 100px);
-    }
-}
-
-@media (max-width: 480px) {
-    .back-button.persian-button {
-        padding: 0.3rem 0.8rem;
-        font-size: 0.7rem;
-        width: auto;
-        margin-bottom: 0;
-    }
-
-    .stats-container {
-        gap: 0.3rem;
-    }
-
-    .stat {
-        padding: 0.2rem;
-        min-width: calc(25% - 0.3rem);
-    }
-
-    .stat-label {
-        font-size: 0.6rem;
-    }
-
-    #tap-score, #tap-timer, #combo-multiplier {
-        font-size: 0.7rem;
-    }
-}
-
-/* Game Elements */
 .mystical-flame {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 140px;
+    height: 140px;
     cursor: pointer;
     transition: transform 0.2s ease-out;
     will-change: transform;
+    z-index: 20;
+    background-image: url('/assets/animations/mystical-flame.webp');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .inner-flame {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, 
-        rgba(255, 215, 0, 0.9) 0%,
-        rgba(255, 140, 0, 0.8) 40%,
-        rgba(255, 69, 0, 0.6) 60%,
-        transparent 80%
-    );
-    border-radius: 50%;
-    filter: blur(8px);
-    animation: flameGlow 2s infinite ease-in-out;
+    display: none; /* Hide the old inner flame since we're using the webp animation */
 }
 
 /* Animations */
@@ -206,8 +133,27 @@
     transform-origin: bottom center;
 }
 
+/* Ensure all game elements are above background */
+.start-screen, 
+.game-over,
+.explosion,
+.points-popup,
+.wisdom-text,
+.flame-particle {
+    z-index: 30;
+}
+
+/* Ensure header elements are on top */
+.game-header.persian-style {
+    z-index: 100;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+    .game-background {
+        background-position: center center;
+    }
+
     .tap-game-container {
         aspect-ratio: 4/3;
     }
@@ -233,8 +179,8 @@
     }
 
     .mystical-flame {
-        width: 60px;
-        height: 60px;
+        width: 100px;
+        height: 100px;
     }
 }
 
@@ -271,7 +217,7 @@
 }
 
 #tap-score, #tap-timer, #combo-multiplier {
-    font-size: 1.5rem;
+    font-size: 0.5rem;
     color: #ffffff;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     font-weight: bold;
@@ -295,10 +241,11 @@
     font-size: 0.9rem;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -30px;
+    bottom: -20px;
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
     font-family: 'Cinzel', serif;
     opacity: 0.9;
+    pointer-events: none;
 }
 
 .flame-particle {
@@ -519,6 +466,7 @@ body, html {
     flex-direction: column;
     gap: clamp(1rem, 3vw, 2rem);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .start-screen h2 {
@@ -582,5 +530,192 @@ body, html {
     .start-screen p {
         font-size: 0.8rem;
         margin-bottom: 0.5rem;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+.mystical-flame.fade-out {
+    animation: fade-out 0.5s ease-out forwards;
+}
+
+/* Game Header - Persian Style */
+.game-header.persian-style {
+    /* position: relative; */
+    height: var(--header-height);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--spacing-md);
+    background: var(--header-background);
+    border-bottom: 2px solid var(--header-border-color);
+    z-index: 100;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.game-header.persian-style::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--primary-gold) 20%, 
+        var(--primary-gold) 80%, 
+        transparent 100%);
+    opacity: 0.8;
+}
+
+.header-left, .header-center, .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.game-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-image {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+}
+
+.game-title {
+    font-family: 'Cinzel', serif;
+    color: var(--primary-gold);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: var(--text-shadow);
+    display: none; /* Hide on mobile */
+}
+
+.stats-container {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+}
+
+.stat {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--primary-gold);
+    border-radius: 8px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-width: 100px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--primary-gold);
+    margin-bottom: 0.3rem;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#tap-score, #tap-timer, #combo-multiplier {
+    font-size: 1.1rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    font-weight: bold;
+}
+
+.settings-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--header-border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.settings-button:hover {
+    background: rgba(255, 215, 0, 0.2);
+}
+
+.settings-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('/assets/icons/settings.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Adjust game area to account for header */
+.game-area {
+    height: calc(100vh - var(--header-height));
+}
+
+/* Responsive adjustments for header */
+@media (min-width: 768px) {
+    .game-title {
+        display: block; /* Show title on larger screens */
+    }
+    
+    .stat {
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 767px) {
+    .game-header.persian-style {
+        padding: 0 var(--spacing-sm);
+        height: 70px;
+    }
+    
+    .stats-container {
+        gap: var(--spacing-sm);
+    }
+    
+    .stat {
+        min-width: 80px;
+        padding: 5px 8px;
+    }
+    
+    .stat-label {
+        font-size: 0.6rem;
+    }
+    
+    #tap-score, #tap-timer, #combo-multiplier {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-container {
+        gap: 5px;
+    }
+    
+    .stat {
+        min-width: 70px;
+        padding: 3px 5px;
     }
 }

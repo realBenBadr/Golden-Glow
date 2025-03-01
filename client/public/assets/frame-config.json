@@ -1,0 +1,115 @@
+{
+  "frame": {
+    "type": "mystical-arch",
+    "background": {
+      "color": "deep-blue",
+      "gradient": {
+        "start": "#1a2b4d",
+        "end": "#0a1428",
+        "centerGlow": {
+          "color": "#4a9fff",
+          "opacity": 0.3
+        }
+      },
+      "stars": {
+        "enabled": true,
+        "density": "medium",
+        "color": "#ffffff"
+      }
+    },
+    "arch": {
+      "border": {
+        "color": "#c5a572",
+        "style": "ornate-islamic",
+        "width": "30px",
+        "glow": {
+          "color": "#ffd700",
+          "intensity": 0.4
+        }
+      },
+      "topOrnament": {
+        "type": "hanging-pendant",
+        "color": "#c5a572"
+      }
+    },
+    "sideColumns": {
+      "left": {
+        "symbols": [
+          {
+            "type": "eye",
+            "position": "top",
+            "color": "#c5a572"
+          },
+          {
+            "type": "celestial-symbol",
+            "position": "middle",
+            "color": "#c5a572"
+          },
+          {
+            "type": "orb",
+            "position": "bottom",
+            "color": "#4a9fff",
+            "glow": true
+          }
+        ],
+        "decorations": {
+          "type": "hanging-chain",
+          "elements": ["crystals", "pendants", "geometric-shapes"],
+          "color": "#c5a572"
+        }
+      },
+      "right": {
+        "symbols": [
+          {
+            "type": "antlers",
+            "position": "top",
+            "color": "#c5a572"
+          },
+          {
+            "type": "aircraft",
+            "position": "middle",
+            "color": "#c5a572"
+          },
+          {
+            "type": "orb",
+            "position": "bottom",
+            "color": "#4a9fff",
+            "glow": true
+          }
+        ],
+        "decorations": {
+          "type": "hanging-chain",
+          "elements": ["crystals", "pendants", "geometric-shapes"],
+          "color": "#c5a572"
+        }
+      }
+    },
+    "bottomElements": {
+      "lanterns": {
+        "type": "islamic-style",
+        "count": 2,
+        "color": "#ffd700",
+        "glow": {
+          "color": "#ff9900",
+          "intensity": 0.8
+        }
+      },
+      "centerOrb": {
+        "color": "#4a9fff",
+        "size": "large",
+        "glow": true
+      },
+      "decorativeLine": {
+        "style": "celtic-knot",
+        "color": "#c5a572"
+      }
+    },
+    "centerContent": {
+      "watermark": {
+        "enabled": true,
+        "opacity": 0.1,
+        "style": "ornate-symmetrical"
+      }
+    }
+  }
+}

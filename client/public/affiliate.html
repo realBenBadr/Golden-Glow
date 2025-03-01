@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Affiliate Program - Golden Glow</title>
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/styles/main.css">
+    
+    <!-- Affiliate-specific CSS -->
+    <link rel="stylesheet" href="/styles/affiliate.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="affiliate-page">
+    <!-- Background stars animation -->
+    <div class="stars"></div>
+    
+    <!-- Header -->
+    <header class="game-header">
+        <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="page-title">Affiliate Program</h1>
+        <div class="header-spacer"></div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="affiliate-section">
+        <!-- Introduction Card -->
+        <div class="affiliate-card">
+            <div class="affiliate-intro">
+                <h2>Share the Magic, Earn Rewards</h2>
+                <p>Invite your friends to join the Golden Glow adventure. For each new player you bring, you'll earn special rewards and bonuses that can be redeemed in-game!</p>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="affiliate-stats">
+                <div class="stat-card">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>Total Referrals</h3>
+                    <p id="referral-count">0</p>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-coins"></i>
+                    <h3>Total Earnings</h3>
+                    <p id="total-earnings">0</p>
+                </div>
+            </div>
+            
+            <!-- Affiliate Link Section -->
+            <div class="affiliate-link-section">
+                <h3>Your Unique Referral Link</h3>
+                <div class="link-container">
+                    <input type="text" id="affiliate-link" readonly value="Loading...">
+                    <button id="copy-link-btn" class="persian-button">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <p class="link-description">Share this link with your friends. When they join using your link, you'll both receive rewards!</p>
+            </div>
+            
+            <!-- Share Buttons -->
+            <div class="share-buttons">
+                <button id="share-telegram" class="persian-button share-button">
+                    <i class="fab fa-telegram"></i> Share on Telegram
+                </button>
+            </div>
+            
+            <!-- Rewards Information -->
+            <div class="affiliate-rewards">
+                <h3>Referral Rewards</h3>
+                <div class="rewards-info">
+                    <div class="reward-item">
+                        <div class="reward-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="reward-text">
+                            <h4>Friend Joins</h4>
+                            <p>When a friend joins using your link, you'll receive 50 coins and your friend gets a welcome bonus of 25 coins.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-item">
+                        <div class="reward-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="reward-text">
+                            <h4>Friend's Achievements</h4>
+                            <p>Earn a 5% bonus on every achievement your referred friend unlocks. Their success is your reward!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-item">
+                        <div class="reward-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="reward-text">
+                            <h4>Milestone Bonuses</h4>
+                            <p>Reach 5, 10, and 25 referrals to unlock special in-game items and exclusive game features.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Socket.IO Library -->
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <!-- Telegram Authentication Helper -->
+    <script src="/js/telegram-auth.js"></script>
+    
+    <!-- Affiliate Page JavaScript -->
+    <script src="/js/affiliate.js"></script>
+</body>
+</html>

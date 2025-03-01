@@ -2,18 +2,33 @@
   "name": "golden-glow",
   "version": "1.0.0",
   "description": "Telegram Mini App Game Collection",
-  "main": "server/index.js",
+  "main": "server/http-server.js",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js"
+    "start": "node server/http-server.js",
+    "dev": "nodemon server/http-server.js",
+    "start:https": "node server/https-server.js",
+    "dev:https": "nodemon server/https-server.js",
+    "cert:dev": "bash deployment/generate-dev-cert.sh",
+    "cert:prod": "bash deployment/setup-ssl.sh",
+    "setup:bot": "node server/scripts/setup-telegram-bot.js",
+    "verify:bot": "node server/scripts/verify-telegram-integration.js",
+    "bot:scripts": "node server/scripts/index.js",
+    "db:check": "node server/scripts/check-database.js",
+    "db:seed": "node server/scripts/seed-database.js"
   },
   "dependencies": {
+    "axios": "^1.6.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.2.0",
+    "redis": "^4.7.0",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

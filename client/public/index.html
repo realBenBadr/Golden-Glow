@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Golden Glow - Mystical Games</title>
-    <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="/games/path-2048/style.css">
-    <link rel="stylesheet" href="/games/tap-to-earn/style.css">
+    <title>Golden Glow</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles/mystical-frame.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="games/path-2048/style.css">
+    <link rel="stylesheet" href="games/tap-to-earn/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="js/telegram-auth.js"></script>
 </head>
 <body>
-    <div class="persian-overlay"></div>
     <div id="app">
         <div id="main-menu" class="screen">
-            <div class="persian-frame">
-                <div class="persian-header">
-                    <h1 class="mystical-title">Golden Glow</h1>
-                    <div class="persian-ornament"></div>
-                </div>
+            <div class="app-container">
+                <h1 class="mystical-title">Golden Glow</h1>
                 
-                <div class="menu-container">
-                    <div class="floating-lights">
-                        <div class="light"></div>
-                        <div class="light"></div>
-                        <div class="light"></div>
+                <!-- Background Layer -->
+                <div class="background-layer">
+                    <div class="frame-background">
+                        <div class="stars"></div>
                     </div>
-                    
+                </div>
+
+                <!-- Content Layer (Buttons and UI) -->
+                <div class="content-layer">
                     <div class="menu-buttons">
                         <button id="tap-game-btn" class="persian-button game-button">
                             <span class="button-glow"></span>
@@ -54,22 +55,20 @@
                             <span class="button-icon trophy-icon"></span>
                             <span class="button-text">Leaderboard</span>
                         </button>
-                    </div>
 
-                    <div class="user-stats">
-                        <div class="stat-item">
-                            <div class="stat-icon points-icon"></div>
-                            <span class="stat-value">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-icon achievements-icon"></div>
-                            <span class="stat-value">0</span>
-                        </div>
+                        <button id="affiliate-btn" class="persian-button">
+                            <span class="button-glow"></span>
+                            <span class="button-icon"><i class="fas fa-handshake"></i></span>
+                            <span class="button-text">Affiliate Program</span>
+                            <span class="button-description">Share and earn mystical rewards</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="game-container" class="screen hidden"></div>
+        <div id="game-container" class="screen hidden">
+            <!-- Game content will be loaded here -->
+        </div>
         <div id="tap-game-container" class="screen game-screen hidden">
             <div class="game-header persian-style">
                 <button class="back-button persian-button">
@@ -121,6 +120,27 @@
             <div id="tic-tac-toe-game" class="game-area"></div>
         </div>
     </div>
-    <script type="module" src="/js/app.js"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/frame-animation.js"></script>
+    <script>
+        // Initialize Telegram WebApp
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        
+        // Connect to Socket.IO server
+        const socket = io();
+        
+        // Listen for connection
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+    </script>
+    <script type="module" src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new MysticalFrame();
+        });
+    </script>
 </body>
 </html>

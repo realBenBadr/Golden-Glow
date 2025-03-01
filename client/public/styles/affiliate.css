@@ -1,0 +1,374 @@
+/* Affiliate Page Styles */
+.affiliate-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    overflow-y: auto;
+}
+
+.affiliate-card {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(25, 20, 35, 0.8);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(221, 185, 117, 0.5);
+    border: 1px solid rgba(221, 185, 117, 0.3);
+    backdrop-filter: blur(5px);
+    margin-bottom: 30px;
+}
+
+.affiliate-intro {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(221, 185, 117, 0.3);
+}
+
+.affiliate-intro h2 {
+    font-family: 'Cinzel', serif;
+    color: #ddb975;
+    margin-bottom: 15px;
+    font-size: 28px;
+    text-shadow: 0 0 5px rgba(221, 185, 117, 0.5);
+}
+
+.affiliate-intro p {
+    color: #eee;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.affiliate-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stat-card {
+    background: rgba(40, 30, 60, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 130px;
+    text-align: center;
+    border: 1px solid rgba(221, 185, 117, 0.2);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(221, 185, 117, 0.3);
+}
+
+.stat-card i {
+    font-size: 24px;
+    color: #ddb975;
+    margin-bottom: 10px;
+}
+
+.stat-card h3 {
+    font-size: 16px;
+    color: #eee;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    font-size: 24px;
+    color: #ddb975;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(221, 185, 117, 0.5);
+}
+
+.affiliate-link-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(40, 30, 60, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba(221, 185, 117, 0.2);
+}
+
+.affiliate-link-section h3 {
+    color: #ddb975;
+    margin-bottom: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.link-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.link-container input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid rgba(221, 185, 117, 0.5);
+    background: rgba(25, 20, 35, 0.9);
+    color: #eee;
+    font-size: 14px;
+}
+
+.link-container button {
+    border-radius: 0 5px 5px 0;
+    padding: 5px 15px;
+    margin: 0;
+    height: auto;
+}
+
+.link-description {
+    font-size: 14px;
+    color: #bbb;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.share-button {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+}
+
+.share-button i {
+    margin-right: 10px;
+}
+
+.affiliate-rewards {
+    padding: 20px;
+    background: rgba(40, 30, 60, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba(221, 185, 117, 0.2);
+    margin-bottom: 50px;
+}
+
+.affiliate-rewards h3 {
+    color: #ddb975;
+    margin-bottom: 20px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.rewards-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.reward-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(25, 20, 35, 0.7);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.reward-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 0 10px rgba(221, 185, 117, 0.3);
+}
+
+.reward-icon {
+    min-width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(221, 185, 117, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reward-icon i {
+    font-size: 22px;
+    color: #ddb975;
+}
+
+.reward-text h4 {
+    color: #ddb975;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.reward-text p {
+    color: #eee;
+    font-size: 14px;
+}
+
+/* Fix for scrolling on mobile */
+body.affiliate-page {
+    overflow-y: auto !important;
+    height: auto !important;
+}
+
+/* Make sure the page is scrollable */
+html, body.affiliate-page {
+    max-height: none !important;
+    overflow: auto !important;
+}
+
+/* Ensure the stars don't interfere with scrolling */
+.stars {
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Improved responsiveness for small screens */
+@media (max-width: 600px) {
+    .affiliate-section {
+        padding: 15px 10px;
+    }
+    
+    .affiliate-card {
+        padding: 15px;
+    }
+    
+    .affiliate-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-card {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .reward-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .reward-text {
+        text-align: center;
+    }
+    
+    .link-container {
+        flex-direction: column;
+    }
+    
+    .link-container input {
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .link-container button {
+        border-radius: 5px;
+        width: 100%;
+    }
+}
+
+/* Animation Effects */
+@keyframes glow-pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(221, 185, 117, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(221, 185, 117, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(221, 185, 117, 0.3);
+    }
+}
+
+.link-container input:focus {
+    animation: glow-pulse 2s infinite;
+    outline: none;
+}
+
+/* Header Style */
+.page-title {
+    color: #ddb975;
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    text-shadow: 0 0 10px rgba(221, 185, 117, 0.5);
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.game-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(25, 20, 35, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: box-shadow 0.3s ease;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-header.with-shadow {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+}
+
+.back-link {
+    color: #ddb975;
+    font-size: 20px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover {
+    transform: translateX(-3px);
+}
+
+.page-title {
+    color: #ddb975;
+    font-size: 24px;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+/* Stars animation improvements */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: star-pulse 3s infinite ease-in-out;
+}
+
+@keyframes star-pulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.5); }
+}
+
+/* Ensure footer has enough margin */
+.affiliate-rewards {
+    padding: 20px;
+    background: rgba(40, 30, 60, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba(221, 185, 117, 0.2);
+    margin-bottom: 50px;
+} 

@@ -4,6 +4,54 @@ import TicTacToe from '../games/tic-tac-toe/TicTacToe.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let currentGame = null;
+    let userData = null;
+
+    // Function to validate Telegram WebApp data with the server
+    async function validateTelegramData() {
+        try {
+            // Use the TelegramAuth utility from telegram-auth.js
+            if (!window.TelegramAuth) {
+                console.error('TelegramAuth utility not available');
+                showError('Authentication utility not available. Please reload the page.');
+                return false;
+            }
+            
+            const result = await window.TelegramAuth.validateWithServer();
+            if (!result.success) {
+                console.error('Telegram validation failed:', result.message);
+                showError(result.message || 'Authentication failed. Please try again.');
+                return false;
+            }
+
+            // Store user data
+            userData = result.user;
+            console.log('Telegram user validated:', userData);
+            return true;
+        } catch (error) {
+            console.error('Error validating Telegram data:', error);
+            showError('Error during authentication. Please try again.');
+            return false;
+        }
+    }
+
+    // Show error message
+    function showError(message) {
+        // Use TelegramAuth showError if available, otherwise use our implementation
+        if (window.TelegramAuth?.showError) {
+            window.TelegramAuth.showError(message);
+            return;
+        }
+        
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.textContent = message;
+        document.body.prepend(errorElement);
+        
+        // Auto-dismiss after 5 seconds
+        setTimeout(() => {
+            errorElement.remove();
+        }, 5000);
+    }
 
     function showScreen(screenId) {
         document.querySelectorAll('.screen').forEach(screen => {
@@ -20,11 +68,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Initialize the app with authentication
+    async function initApp() {
+        // Validate Telegram data first
+        const isValid = await validateTelegramData();
+        if (!isValid) {
+            // Still show the app but with limited functionality
+            console.warn('Proceeding with limited functionality due to validation failure');
+        }
+        
+        // Continue with app initialization
+        showScreen('main-menu');
+    }
+
     // Game buttons
     const tapGameBtn = document.getElementById('tap-game-btn');
     const path2048Btn = document.getElementById('path-2048-btn');
     const ticTacToeBtn = document.getElementById('tic-tac-toe-btn');
     const leaderboardBtn = document.getElementById('leaderboard-btn');
+    const affiliateBtn = document.getElementById('affiliate-btn');
     
     tapGameBtn?.addEventListener('click', () => {
         try {
@@ -63,6 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'leaderboard.html';
     });
 
+    affiliateBtn?.addEventListener('click', () => {
+        window.location.href = 'affiliate.html';
+    });
+
     // Initialize back buttons
     document.querySelectorAll('.back-button').forEach(button => {
         button.addEventListener('click', () => {
@@ -76,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Show initial screen
-    showScreen('main-menu');
+    initApp();
 
     // Add haptic feedback
     document.querySelectorAll('.persian-button').forEach(button => {

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Golden Glow</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .error-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 90%;
+            width: 400px;
+        }
+        .error-title {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        .error-code {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #ffa502;
+            margin: 1rem 0;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        }
+        .error-message {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        .back-button {
+            background-color: #ffa502;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-button:hover {
+            background-color: #ff9f00;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-title">Oops!</div>
+        <div class="error-code">404</div>
+        <div class="error-message">The page you are looking for doesn't exist or has been moved.</div>
+        <a href="/" class="back-button">Go to Homepage</a>
+    </div>
+
+    <script src="/js/telegram-auth.js"></script>
+    <script>
+        // Initialize Telegram WebApp if possible
+        document.addEventListener('DOMContentLoaded', () => {
+            if (TelegramAuth && TelegramAuth.initialize()) {
+                TelegramAuth.webApp.BackButton.show();
+                TelegramAuth.webApp.BackButton.onClick(() => {
+                    window.location.href = '/';
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

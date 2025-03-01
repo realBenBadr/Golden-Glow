@@ -5,6 +5,8 @@
     min-height: 100vh;
     position: relative;
     overflow: hidden;
+    padding: var(--spacing-md) 0;
+    box-sizing: border-box;
 }
 
 .persian-frame {
@@ -17,11 +19,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: calc(100vh - var(--spacing-md) * 2);
+    box-sizing: border-box;
 }
 
 .leaderboard-container {
-    /* width: 100%; */
+    width: 90%;
     max-width: 800px;
+    margin: var(--spacing-md) auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     background: rgba(26, 35, 126, 0.7);
     border: 2px solid var(--primary-gold);
     border-radius: 10px;
@@ -29,7 +37,6 @@
     box-shadow: 0 0 20px var(--glow-color);
     position: relative;
     overflow: hidden;
-    margin: var(--spacing-lg) auto;
 }
 
 /* Floating lights animation */
@@ -94,12 +101,15 @@
 }
 
 .leaderboard-list {
+    flex: 1;
+    max-height: 50vh;
+    min-height: 200px;
+    margin: var(--spacing-md) 0;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
     position: relative;
     z-index: 1;
-    max-height: 60vh;
     overflow-y: auto;
     padding-right: var(--spacing-md);
 }
@@ -141,6 +151,49 @@
     width: 50px;
     text-align: center;
     text-shadow: 0 0 10px var(--glow-color);
+}
+
+/* Special styling for top 3 ranks */
+.rank-1 .fa-crown.gold-crown {
+    color: #FFD700;
+    filter: drop-shadow(0 0 5px #FFD700);
+    margin-right: 5px;
+}
+
+.rank-2 .fa-crown.silver-crown {
+    color: #C0C0C0;
+    filter: drop-shadow(0 0 5px #C0C0C0);
+    margin-right: 5px;
+}
+
+.rank-3 .fa-crown.bronze-crown {
+    color: #CD7F32;
+    filter: drop-shadow(0 0 5px #CD7F32);
+    margin-right: 5px;
+}
+
+/* Special styling for top 3 entries */
+.leaderboard-entry.rank-1 {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: #FFD700;
+    transform: scale(1.02);
+}
+
+.leaderboard-entry.rank-2 {
+    background: rgba(192, 192, 192, 0.1);
+    border-color: #C0C0C0;
+    transform: scale(1.01);
+}
+
+.leaderboard-entry.rank-3 {
+    background: rgba(205, 127, 50, 0.1);
+    border-color: #CD7F32;
+}
+
+.leaderboard-entry.rank-1:hover,
+.leaderboard-entry.rank-2:hover,
+.leaderboard-entry.rank-3:hover {
+    transform: translateX(5px) scale(1.02);
 }
 
 .player-info {
@@ -210,6 +263,12 @@
     position: relative;
     margin-top: var(--spacing-lg);
     padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 150px;
+    z-index: 2;
 }
 
 .back-button i {
@@ -226,6 +285,38 @@
     border: 1px solid rgba(255, 0, 0, 0.3);
 }
 
+/* Loading message styling */
+.loading-message {
+    text-align: center;
+    color: var(--text-color);
+    padding: var(--spacing-lg);
+    font-size: 1.1em;
+    position: relative;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.loading-message::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--primary-gold);
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    margin: var(--spacing-md) auto 0;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .persian-frame {
@@ -233,7 +324,8 @@
     }
 
     .leaderboard-container {
-        padding: var(--spacing-md);
+        /* width: 95%; */
+        padding: var(--spacing-sm);
     }
 
     .leaderboard-filters {
@@ -248,7 +340,7 @@
     }
 
     .leaderboard-list {
-        max-height: 50vh;
+        max-height: 40vh;
     }
 
     .player-info {
@@ -266,6 +358,12 @@
     .rank-value {
         font-size: 1.5em;
     }
+
+    .back-button {
+        margin-top: var(--spacing-md);
+        padding: 10px 20px;
+        min-width: 120px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -274,6 +372,7 @@
     }
 
     .leaderboard-container {
+        /* width: 100%; */
         padding: var(--spacing-sm);
     }
 
@@ -307,6 +406,17 @@
     .rank-score {
         font-size: 0.9em;
     }
+
+    .back-button {
+        margin-top: var(--spacing-sm);
+        padding: 8px 16px;
+        min-width: 100px;
+        font-size: 0.9em;
+    }
+
+    .mystical-title {
+        font-size: 1.5em;
+    }
 }
 
 /* Touch device optimizations */
@@ -317,5 +427,21 @@
 
     .leaderboard-list {
         -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Add styles for very small screens */
+@media (max-height: 600px) {
+    .leaderboard-list {
+        max-height: 30vh;
+    }
+
+    .leaderboard-filters .persian-button {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+
+    .user-rank-card {
+        padding: var(--spacing-sm);
     }
 } 

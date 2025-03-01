@@ -1,32 +1,83 @@
-<div class="game-2048">
-    <!-- Back Layer Header -->
-    <div class="game-header persian-style">
-        <button class="back-button persian-button">
-            <span class="button-icon back-icon"></span>
-            Return to Menu
-        </button>
-        <div class="scores-container">
-            <div class="score">Score: <span id="path-score">0</span></div>
-            <div class="best-score">Best: <span id="path-best-score">0</span></div>
-        </div>
-    </div>
-
-    <!-- Main Game Content -->
-    <div class="game-content">
-        <div class="game-header">
-            <div class="game-title">Path of Enlightenment</div>
-            <div class="scores-container">
-                <div class="score">Score: <span id="score">0</span></div>
-                <div class="best-score">Best: <span id="bestScore">0</span></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path of Enlightenment - Mystical Persian Style</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Cinzel', serif;
+        }
+        
+        button {
+            font-family: 'Cinzel', serif;
+        }
+        
+        /* Ensure game elements are visible */
+        .game-header:not(.persian-style),
+        .game-title,
+        .restart-button,
+        .grid-container {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            z-index: 10 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div class="game-2048">
+            <!-- Back Layer Header -->
+            <div class="game-header persian-style">
+                <button class="back-button persian-button">
+                    <span class="button-icon back-icon"></span>
+                    RETURN TO SANCTUARY
+                </button>
+                <div class="scores-container">
+                    <div class="score">WISDOM: <span id="path-score">0</span></div>
+                    <div class="best-score">LEGACY: <span id="path-best-score">0</span></div>
+                </div>
             </div>
-            <div class="restart-button">New Game</div>
-        </div>
-        
-        <div class="grid-container"></div>
-        
-        <div class="game-message">
-            <p></p>
-            <div class="retry-button">Try again</div>
+
+            <!-- Main Game Content -->
+            <div class="game-content">
+                <div class="game-header">
+                    <div class="game-title">PATH OF ENLIGHTENMENT</div>
+                    <div class="restart-button">NEW JOURNEY</div>
+                </div>
+                
+                <div class="grid-container"></div>
+                
+                <div class="game-message">
+                    <p></p>
+                    <div class="retry-button">CONTINUE YOUR QUEST</div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    
+    <script type="module">
+        import Path2048 from './Path2048.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            const game = new Path2048('game-container');
+            
+            // Ensure game initializes properly
+            setTimeout(() => {
+                // Force a refresh of the game view
+                if (game) {
+                    game.updateView();
+                    game.ensureGameElementsVisible();
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

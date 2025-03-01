@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Faravahar (Zoroastrian Guardian Symbol) -->
+  <path fill="#e74c3c" d="M50,5 C42,5 35,12 35,20 C35,28 42,35 50,35 C58,35 65,28 65,20 C65,12 58,5 50,5 Z" />
+  <path stroke="#e74c3c" stroke-width="3" d="M50,35 L50,65 M35,45 L65,45" />
+  <path stroke="#e74c3c" stroke-width="3" fill="none" d="M30,35 C20,45 20,65 30,75 C35,80 40,80 45,75 C50,70 50,60 45,55 C40,50 35,50 30,55" />
+  <path stroke="#e74c3c" stroke-width="3" fill="none" d="M70,35 C80,45 80,65 70,75 C65,80 60,80 55,75 C50,70 50,60 55,55 C60,50 65,50 70,55" />
+  <path stroke="#e74c3c" stroke-width="3" d="M20,50 L80,50" />
+  <path stroke="#e74c3c" stroke-width="2" d="M25,65 L35,75 M75,65 L65,75" />
+  <path stroke="#e74c3c" stroke-width="3" d="M50,65 L40,85 M50,65 L60,85" />
+</svg> 

@@ -6,10 +6,10 @@
     --ornament-color: #c9a55f;
     --text-color: #ffffff;
     --glow-color: rgba(255, 215, 0, 0.5);
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 2rem;
-    --button-height-mobile: 80px;
+    --spacing-sm: clamp(0.3rem, 1vw, 0.5rem);
+    --spacing-md: clamp(0.5rem, 2vw, 1rem);
+    --spacing-lg: clamp(1rem, 3vw, 2rem);
+    --button-height: clamp(40px, 8vh, 80px);
     --text-primary: #ffffff;
     --text-secondary: #ffd700;
     --text-shadow: 0 0 10px #4400ffcc;
@@ -26,6 +26,8 @@ body {
     color: var(--text-color);
     font-family: 'Cinzel', serif;
     overflow: hidden;
+    height: 100vh;
+    max-height: 100vh;
 }
 
 .button-icon {
@@ -59,34 +61,33 @@ body {
 #app {
     width: 100vw;
     height: 100vh;
+    max-height: 100vh;
     position: relative;
     background: radial-gradient(circle at center, var(--mystical-blue), var(--deep-blue));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1;
 }
 
 .persian-frame {
-    position: relative;
-    width: 90%;
-    max-width: 1200px;
-    margin: 1rem auto;
-    padding: 1.5rem;
-    border: 2px solid var(--ornament-color);
-    border-radius: 10px;
+    position: fixed;
+    top: 1mm;
+    bottom: 1mm;
+    left: 1mm;
+    right: 1mm;
+    width: calc(100% - 2mm);
+    height: calc(100% - 2mm);
+    margin: 0;
+    padding: clamp(0.5rem, 2vw, 1.5rem);
+    border: clamp(1px, 0.2vw, 2px) solid var(--ornament-color);
+    border-radius: clamp(5px, 1vw, 10px);
     background: rgba(26, 35, 126, 0.7);
-    box-shadow: 0 0 20px rgba(201, 165, 95, 0.2);
+    box-shadow: 0 0 clamp(10px, 2vw, 20px) rgba(201, 165, 95, 0.2);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    &::before {
-        content: '';
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-        background: var(--arabesque-pattern);
-        z-index: -1;
-        opacity: 0.2;
-    }
+    gap: clamp(0.5rem, 1vw, 1rem);
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .button-icon {
@@ -95,29 +96,61 @@ body {
     border-radius: 50%;
 }
 
+/* Base text sizes for all screen widths */
+.button-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-gold);
+    margin-bottom: 0.2rem;
+}
+
+.button-description {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-size: 0.8rem;
+}
+
 /* Enhanced stat labels */
 .stat-label {
     color: var(--stat-label-color);
     text-shadow: var(--text-shadow);
     font-weight: 600;
     letter-spacing: 2px;
+    font-size: clamp(0.8rem, 1.8vw, 1rem);
 }
 
 /* Enhanced stat values */
 #tap-score, #tap-timer, #combo-multiplier {
     color: var(--stat-value-color);
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
     font-weight: bold;
 }
 
 /* Enhanced game title */
 .mystical-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
     color: var(--primary-gold);
-    text-shadow: 0 0 10px var(--glow-color);
+    text-shadow: 0 0 clamp(5px, 1vw, 10px) var(--glow-color);
     margin: 0;
     animation: titleGlow 2s infinite alternate;
+    position: fixed;
+    z-index: 2500;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    padding: 0 1rem;
+    pointer-events: none;
 }
 
 /* Enhanced button text */
@@ -149,17 +182,23 @@ body {
     position: relative;
     width: 100%;
     min-height: min(70vh, 500px);
+    max-width: min(500px, 95vw);
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0.5rem, 1vw, 1rem);
+    padding: clamp(0.5rem, 2vw, 1rem);
     background: rgba(26, 35, 126, 0.3);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: clamp(8px, 1.5vw, 15px);
+    border: clamp(1px, 0.2vw, 1px) solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 clamp(10px, 2vw, 20px) rgba(0, 0, 0, 0.2);
     margin: 0 auto;
+    overflow: hidden;
+    z-index: 1000;
 }
 
 .floating-lights {
@@ -186,75 +225,71 @@ body {
 .light:nth-child(3) { bottom: 20%; left: 50%; animation-delay: -6s; }
 
 .menu-buttons {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    width: 100%;
-    max-width: 500px;
+    width: 200px;
     margin: 0 auto;
-    z-index: 1;
+    z-index: 2000;
 }
 
 .persian-button.game-button {
     width: 100%;
-    height: auto;
-    min-height: 60px;
-    padding: clamp(0.8rem, 2vh, 1.2rem);
+    height: 120px;
+    min-height: unset;
+    padding: 0.8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.4rem;
     text-align: center;
     background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
     border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 12px;
+    border-radius: 10px;
     transition: all 0.3s ease;
 }
 
-.button-text {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    font-weight: 600;
-    color: var(--primary-gold);
-}
-
-.button-description {
-    font-size: clamp(0.8rem, 2vw, 0.9rem);
-    color: rgba(255, 255, 255, 0.8);
-}
-
 .button-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 0.5rem;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 0.4rem;
 }
 
 .user-stats {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
-    gap: clamp(1rem, 3vw, 2rem);
-    padding: clamp(0.5rem, 2vh, 1rem);
-    background: rgba(255, 215, 0, 0.1);
-    border-radius: 12px;
-    z-index: 1;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    padding: 0.4rem;
+    background: rgba(255, 215, 0, 0.05);
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .stat-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
     background: rgba(255, 215, 0, 0.05);
-    border-radius: 8px;
+    border-radius: 6px;
+    min-width: 100px;
+    height: 30px;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .stat-icon {
-    width: 20px;
-    height: 20px;
-}
-
-.stat-value {
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    color: var(--primary-gold);
+    width: 16px;
+    height: 16px;
 }
 
 /* Desktop Adjustments */
@@ -265,8 +300,10 @@ body {
     }
 
     .menu-container {
-        min-height: min(60vh, 450px);
-        padding: 1.5rem;
+        max-width: 500px;
+        margin: 2rem auto;
+        height: calc(100vh - 4rem);
+        max-height: 800px;
     }
 
     .menu-buttons {
@@ -291,12 +328,14 @@ body {
     }
 
     .persian-button.game-button {
-        min-height: 50px;
-        padding: 0.8rem;
+        height: 110px;
+        padding: 0.7rem;
     }
 
-    .user-stats {
-        padding: 0.5rem;
+    .button-icon {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 0.3rem;
     }
 }
 
@@ -327,7 +366,7 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     .persian-frame {
         width: 95%;
         margin: 0.5rem auto;
@@ -366,6 +405,19 @@ body {
 
     .menu-buttons {
         gap: 0.5rem;
+    }
+
+    .mystical-title {
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        top: 3%;
+    }
+
+    .button-text {
+        font-size: 0.8rem;
+    }
+    
+    .button-description {
+        font-size: 0.65rem;
     }
 }
 
@@ -450,7 +502,7 @@ body {
 }
 
 /* Responsive adjustments for game buttons */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     .game-button {
         min-height: 100px;
         padding: 1rem;
@@ -480,6 +532,8 @@ body {
     min-height: 100vh;
     padding: 1rem;
     box-sizing: border-box;
+    position: relative;
+    z-index: 100;
 }
 
 /* Responsive menu container */
@@ -507,38 +561,39 @@ body {
     overflow: hidden;
 }
 
-/* Game header */
-.game-header {
-    padding: 0.5rem;
-    font-size: clamp(12px, 3.5vw, 16px);
-}
-
-/* Stats container */
-.stats-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-}
-
-.stat {
-    flex: 1;
-    min-width: 80px;
-    text-align: center;
-}
-
-/* Game areas */
-.game-area {
-    flex: 1;
+/* Maintain existing z-index hierarchy for other elements */
+#tap-game-area {
     position: relative;
-    touch-action: none; /* Prevents default touch behaviors */
+    z-index: 52;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-md);
+    justify-content: center;
+    background-image: url('../assets/animations/FOW Game.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#tap-game-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom,
+        rgba(26, 34, 126, 0),
+        hsla(235, 66%, 30%, 0.2)
+    );
+    z-index: -1;
 }
 
 .game-status {
+    position: relative;
+    z-index: 100;
     font-size: 1.2rem;
     color: var(--primary-gold);
     text-align: center;
@@ -550,119 +605,22 @@ body {
     animation: pulse 2s infinite;
 }
 
-.game-controls {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin: 1rem 0;
-}
-
-.play-again-btn,
-.new-opponent-btn {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    color: var(--text-color);
-    background: linear-gradient(135deg, var(--mystical-blue), var(--deep-blue));
-    border: 2px solid var(--ornament-color);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-shadow: 0 0 5px var(--glow-color);
-    position: relative;
-    overflow: hidden;
-}
-
-.play-again-btn:hover,
-.new-opponent-btn:hover {
-    border-color: var(--primary-gold);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
-}
-
-.play-again-btn:active,
-.new-opponent-btn:active {
-    transform: translateY(0);
-}
-
-.play-again-btn::before,
-.new-opponent-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255, 215, 0, 0.2),
-        transparent
-    );
-    transition: 0.5s;
-}
-
-.play-again-btn:hover::before,
-.new-opponent-btn:hover::before {
-    animation: buttonGlow 1s;
-}
-
-/* Mobile adjustments for game controls */
-@media (max-width: 480px) {
-    .game-controls {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .play-again-btn,
-    .new-opponent-btn {
-        width: 100%;
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-    }
-}
-
-/* Grid container for 2048 */
-.grid-container {
-    width: min(95vw, 500px);
-    height: min(95vw, 500px);
-    margin: 0 auto;
-    padding: 0.5rem;
-    background: rgba(187, 173, 160, 0.5);
-    border-radius: 8px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: min(1.5vw, 10px);
-    position: relative;
-}
-
-.grid-cell {
-    background: rgba(238, 228, 218, 0.35);
-    border-radius: 6px;
-    position: relative;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-    aspect-ratio: 1;
-}
-
-/* Media queries for different screen sizes */
+/* Remove all game header related media queries */
 @media (max-width: 480px) {
     .mystical-title {
         font-size: 2rem;
     }
     
     .button-text {
-        font-size: 1rem;
-    }
-    
-    .button-description {
         font-size: 0.8rem;
     }
     
-    .stat-label {
-        font-size: 0.9rem;
+    .button-description {
+        font-size: 0.65rem;
     }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 687px) {
     .mystical-title {
         font-size: 2.5rem;
     }
@@ -709,4 +667,392 @@ body {
         padding-left: env(safe-area-inset-left);
         padding-right: env(safe-area-inset-right);
     }
+
+    .persian-frame {
+        top: max(1mm, env(safe-area-inset-top));
+        bottom: max(1mm, env(safe-area-inset-bottom));
+        left: max(1mm, env(safe-area-inset-left));
+        right: max(1mm, env(safe-area-inset-right));
+        height: calc(100% - max(2mm, env(safe-area-inset-top)) - max(2mm, env(safe-area-inset-bottom)));
+    }
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 320px) {
+    .persian-frame {
+        padding: 0.5rem;
+    }
+    
+    .menu-container {
+        padding: 0.4rem;
+        gap: 0.4rem;
+    }
+    
+    .button-text {
+        font-size: 0.75rem;
+    }
+    
+    .button-description {
+        font-size: 0.6rem;
+    }
+}
+
+.persian-button#tap-game-btn {
+    background-image: url('../assets/animations/FlameofWisdom.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.persian-button#tap-game-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 35, 126, 0.85);  /* Semi-transparent overlay to maintain readability */
+    z-index: 1;
+}
+
+.persian-button#tap-game-btn > * {
+    /* position: relative; */
+    z-index: 2;  /* Ensure button content stays above the background */
+}
+
+.persian-button#path-2048-btn {
+    background-image: url('../assets/animations/Path of Enlightenment.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.persian-button#path-2048-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 35, 126, 0.85);  /* Semi-transparent overlay to maintain readability */
+    z-index: 1;
+}
+
+.persian-button#path-2048-btn > * {
+    /* position: relative; */
+    z-index: 2;  /* Ensure button content stays above the background */
+}
+
+.persian-button#tic-tac-toe-btn {
+    background-image: url('../assets/animations/MarksofDestiny.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.persian-button#tic-tac-toe-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 35, 126, 0.85);  /* Semi-transparent overlay to maintain readability */
+    z-index: 1;
+}
+
+.persian-button#tic-tac-toe-btn > * {
+    position: relative;
+    z-index: 2;  /* Ensure button content stays above the background */
+}
+
+.persian-button#leaderboard-btn {
+    background-image: url('../assets/animations/Leaderboard.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.persian-button#leaderboard-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 35, 126, 0.85);  /* Semi-transparent overlay to maintain readability */
+    z-index: 1;
+}
+
+.persian-button#leaderboard-btn > * {
+    position: relative;
+    z-index: 2;  /* Ensure button content stays above the background */
+}
+
+.coin-icon {
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%23ffd700' stroke-width='2'/%3E%3Cpath d='M12 4v16M8 8h8M8 12h8M8 16h8' stroke='%23ffd700' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23ffd700'/%3E%3C/svg%3E");
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%23ffd700' stroke-width='2'/%3E%3Cpath d='M12 4v16M8 8h8M8 12h8M8 16h8' stroke='%23ffd700' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23ffd700'/%3E%3C/svg%3E");
+    background-color: var(--primary-gold);
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    animation: coinRotate 4s infinite linear;
+}
+
+@keyframes coinRotate {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+#main-menu {
+    z-index: 1000;
+}
+
+/* Mobile Adjustments for stats */
+@media (max-width: 480px) {
+    .user-stats {
+        padding: 0.3rem;
+        max-width: 100%;
+        bottom: 0.5rem;
+    }
+
+    .stat-item {
+        padding: 0.2rem 0.6rem;
+        min-width: 80px;
+        height: 25px;
+    }
+
+    .stat-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .stat-value {
+        font-size: 0.8rem;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+    .user-stats {
+        bottom: 0.3rem;
+    }
+
+    .stat-item {
+        padding: 0.2rem 0.4rem;
+        min-width: 70px;
+        height: 22px;
+    }
+
+    .stat-icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .stat-value {
+        font-size: 0.75rem;
+    }
+}
+
+/* Minimal Game Header */
+.game-header.persian-style {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    padding: 0.2rem 0.5rem;
+    background: linear-gradient(to top, 
+        rgba(26, 35, 126, 0.98),
+        rgba(26, 35, 126, 0.95)
+    );
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Minimal Stats Container */
+.game-header.persian-style .stats-container {
+    display: flex;
+    gap: clamp(0.3rem, 2vw, 1.2rem);
+    align-items: center;
+    padding: 0.2rem;
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.game-header.persian-style .stat {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.2rem, 1vw, 0.4rem);
+    min-width: 0;
+    flex-shrink: 1;
+}
+
+.game-header.persian-style .stat-label {
+    color: rgba(255, 215, 0, 0.7);
+    font-size: clamp(0.5rem, 1.5vw, 0.75rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#tap-score,
+#tap-timer,
+#combo-multiplier {
+    color: var(--primary-gold);
+    font-weight: 600;
+    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+    min-width: 0;
+    flex-shrink: 1;
+}
+
+/* Minimal Back Button */
+.game-header.persian-style .back-button {
+    position: relative;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    color: #ffd700;
+    background: rgba(0, 0, 20, 0.6);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    width: auto;
+    min-width: 80px;
+    height: 24px;
+    margin: 0 auto;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.game-header.persian-style .back-button:hover {
+    background: rgba(0, 0, 20, 0.7);
+}
+
+.game-header.persian-style .back-button:active {
+    transform: scale(0.98);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    .game-header.persian-style {
+        height: 62px;
+        padding: 0.2rem 0.4rem;
+        gap: 0.25rem;
+    }
+
+    .game-header.persian-style .stats-container {
+        gap: clamp(0.2rem, 1.5vw, 0.8rem);
+        padding: 0.15rem;
+    }
+
+    .game-header.persian-style .back-button {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.75rem;
+        height: 22px;
+    }
+}
+
+/* Very Small Screen Adjustments */
+@media (max-width: 320px) {
+    .game-header.persian-style {
+        height: 56px;
+        padding: 0.15rem 0.3rem;
+        gap: 0.2rem;
+    }
+
+    .game-header.persian-style .stats-container {
+        gap: 0.2rem;
+    }
+
+    .game-header.persian-style .back-button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.7rem;
+        height: 20px;
+    }
+}
+
+/* Safe area insets for modern mobile devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .game-header.persian-style {
+        padding-bottom: max(0.2rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* Remove back-icon styles */
+.button-icon,
+.back-icon {
+    display: none;
+}
+
+/* Specific styling for the affiliate button to make it smaller */
+#affiliate-btn {
+    max-width: 280px;
+    padding: 5px 13px;
+    height: auto;
+    min-height: 50px;
+    margin: 0 auto;
+}
+
+#affiliate-btn .button-text {
+    font-size: 0.8rem;
+}
+
+#affiliate-btn .button-description {
+    font-size: 0.5rem;
+}
+
+#affiliate-btn .button-icon {
+    transform: scale(0.85);
+}
+
+/* Error Message Styling */
+.error-message {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(220, 53, 69, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    font-weight: 500;
+    text-align: center;
+    max-width: 90%;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
 }

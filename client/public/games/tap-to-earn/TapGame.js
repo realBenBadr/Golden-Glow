@@ -126,14 +126,13 @@ export default class TapGame {
         const flame = document.createElement('div');
         flame.className = 'mystical-flame';
         
-        const innerFlame = document.createElement('div');
-        innerFlame.className = 'inner-flame';
-        
+        // No need to create inner-flame div since we're using the webp animation
+        // But we still need the wisdom text
         const wisdomText = document.createElement('div');
         wisdomText.className = 'wisdom-text';
         wisdomText.textContent = this.getRandomWisdom();
         
-        flame.append(innerFlame, wisdomText);
+        flame.appendChild(wisdomText);
         
         const position = this.getRandomPosition();
         Object.assign(flame.style, {
@@ -162,32 +161,6 @@ export default class TapGame {
     handleFlameClick(flame) {
         const now = Date.now();
         this.updateCombo(now);
-        this.updateScore();
-        this.createVisualEffects(flame);
-        this.removeFlame(flame);
-    }
-
-    updateCombo(now) {
-        if (now - this.state.lastClickTime < this.CONFIG.COMBO_WINDOW) {
-            this.state.comboMultiplier = Math.min(
-                this.state.comboMultiplier + 0.2,
-                this.CONFIG.MAX_COMBO
-            );
-        } else {
-            this.state.comboMultiplier = 1;
-        }
-        this.state.lastClickTime = now;
-    }
-
-    updateScore() {
-        const points = Math.round(this.CONFIG.BASE_POINTS * this.state.comboMultiplier);
-        this.state.score += points;
-        this.updateUI();
-    }
-
-    handleFlameClick(flame) {
-        const now = Date.now();
-        this.updateCombo(now);
         
         // Add click animation class
         flame.classList.add('clicked');
@@ -209,6 +182,24 @@ export default class TapGame {
         }, 300);
     }
 
+    updateCombo(now) {
+        if (now - this.state.lastClickTime < this.CONFIG.COMBO_WINDOW) {
+            this.state.comboMultiplier = Math.min(
+                this.state.comboMultiplier + 0.2,
+                this.CONFIG.MAX_COMBO
+            );
+        } else {
+            this.state.comboMultiplier = 1;
+        }
+        this.state.lastClickTime = now;
+    }
+
+    updateScore() {
+        const points = Math.round(this.CONFIG.BASE_POINTS * this.state.comboMultiplier);
+        this.state.score += points;
+        this.updateUI();
+    }
+
     showPointsGained(flame, points) {
         const rect = flame.getBoundingClientRect();
         const pointsPopup = document.createElement('div');
@@ -220,6 +211,7 @@ export default class TapGame {
         
         setTimeout(() => pointsPopup.remove(), 1000);
     }
+
     createExplosion(flame) {
         const rect = flame.getBoundingClientRect();
         const explosion = document.createElement('div');
@@ -240,7 +232,9 @@ export default class TapGame {
 
         document.body.appendChild(explosion);
         setTimeout(() => explosion.remove(), 1000);
-    }    createParticles(flame) {
+    }
+
+    createParticles(flame) {
         const rect = flame.getBoundingClientRect();
         for (let i = 0; i < 8; i++) {
             const particle = document.createElement('div');
@@ -271,8 +265,8 @@ export default class TapGame {
     getRandomPosition() {
         const rect = this.container.getBoundingClientRect();
         return {
-            x: Math.random() * (rect.width - 60),
-            y: Math.random() * (rect.height - 60)
+            x: Math.random() * (rect.width - 140),
+            y: Math.random() * (rect.height - 140)
         };
     }
 
