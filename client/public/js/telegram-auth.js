@@ -10,7 +10,8 @@
  * 2. Use the TelegramAuth object to interact with Telegram WebApp data
  */
 
-const TelegramAuth = {
+// Define TelegramAuth in the global scope
+window.TelegramAuth = {
   /**
    * Initializes Telegram WebApp integration
    * @returns {boolean} - Whether the WebApp was initialized successfully
@@ -282,4 +283,17 @@ const TelegramAuth = {
 // Auto-initialize when the script loads
 document.addEventListener('DOMContentLoaded', () => {
   TelegramAuth.initialize();
-}); 
+});
+
+// Self-initialize on script load if Telegram is already available
+if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+    console.log('Telegram WebApp found, auto-initializing TelegramAuth');
+    // We'll wait a small delay to ensure document has loaded
+    setTimeout(() => {
+        if (window.TelegramAuth && typeof window.TelegramAuth.initialize === 'function') {
+            window.TelegramAuth.initialize();
+        }
+    }, 100);
+} else {
+    console.log('Waiting for Telegram WebApp to be available');
+} 

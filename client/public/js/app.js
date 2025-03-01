@@ -16,6 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return false;
             }
             
+            // Initialize TelegramAuth before using it
+            if (!window.TelegramAuth.initialize()) {
+                console.error('Failed to initialize TelegramAuth');
+                showError('Failed to initialize Telegram authentication. Please try again.');
+                return false;
+            }
+            
             const result = await window.TelegramAuth.validateWithServer();
             if (!result.success) {
                 console.error('Telegram validation failed:', result.message);

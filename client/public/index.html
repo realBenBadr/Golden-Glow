@@ -12,8 +12,35 @@
     <link rel="stylesheet" href="games/tap-to-earn/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="js/telegram-auth.js"></script>
+    <style>
+        #debug-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px;
+            font-size: 10px;
+            max-height: 100px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .debug-show {
+            display: block !important;
+        }
+    </style>
 </head>
 <body>
+    <!-- Debug Panel for troubleshooting Telegram WebApp integration -->
+    <div id="debug-panel">
+        <div>Telegram WebApp Status: <span id="telegram-status">Checking...</span></div>
+        <div>Init Data: <span id="init-data-status">Checking...</span></div>
+        <div>TelegramAuth: <span id="auth-status">Checking...</span></div>
+    </div>
+    
     <div id="app">
         <div id="main-menu" class="screen">
             <div class="app-container">
@@ -127,6 +154,70 @@
         // Initialize Telegram WebApp
         const tg = window.Telegram.WebApp;
         tg.expand();
+        
+        // Initialize TelegramAuth helper
+        document.addEventListener('DOMContentLoaded', () => {
+            // Enable debug panel with triple tap anywhere on the screen
+            let tapCount = 0;
+            document.addEventListener('click', () => {
+                tapCount++;
+                if (tapCount >= 3) {
+                    document.getElementById('debug-panel').classList.toggle('debug-show');
+                    tapCount = 0;
+                    updateDebugPanel();
+                }
+                setTimeout(() => { tapCount = 0; }, 1000);
+            });
+            
+            // Update debug info
+            function updateDebugPanel() {
+                // Check Telegram WebApp
+                const telegramStatus = document.getElementById('telegram-status');
+                if (window.Telegram && window.Telegram.WebApp) {
+                    telegramStatus.textContent = 'Available';
+                    telegramStatus.style.color = 'lightgreen';
+                    
+                    // Check init data
+                    const initDataStatus = document.getElementById('init-data-status');
+                    if (window.Telegram.WebApp.initData) {
+                        initDataStatus.textContent = 'Present (length: ' + window.Telegram.WebApp.initData.length + ')';
+                        initDataStatus.style.color = 'lightgreen';
+                    } else {
+                        initDataStatus.textContent = 'Missing!';
+                        initDataStatus.style.color = 'red';
+                    }
+                } else {
+                    telegramStatus.textContent = 'Not available!';
+                    telegramStatus.style.color = 'red';
+                }
+                
+                // Check TelegramAuth
+                const authStatus = document.getElementById('auth-status');
+                if (window.TelegramAuth) {
+                    authStatus.textContent = 'Available';
+                    authStatus.style.color = 'lightgreen';
+                    
+                    // Try to initialize
+                    if (window.TelegramAuth.initialize()) {
+                        authStatus.textContent += ' (Initialized)';
+                    } else {
+                        authStatus.textContent += ' (Init failed)';
+                        authStatus.style.color = 'orange';
+                    }
+                } else {
+                    authStatus.textContent = 'Not available!';
+                    authStatus.style.color = 'red';
+                }
+            }
+            
+            // Initialize TelegramAuth
+            if (window.TelegramAuth) {
+                window.TelegramAuth.initialize();
+                console.log('TelegramAuth initialized');
+            } else {
+                console.error('TelegramAuth utility not available');
+            }
+        });
         
         // Connect to Socket.IO server
         const socket = io();
