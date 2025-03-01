@@ -85,7 +85,6 @@ body {
         radial-gradient(2px 2px at 70% 20%, rgba(255, 255, 255, 0.3) 100%, transparent);
     background-size: 100px 100px;
     opacity: 0.4;
-    animation: twinkle 4s infinite alternate;
     z-index: 1;
     pointer-events: none;
 }
@@ -637,14 +636,14 @@ button {
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 0.4; }
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.6; }
 }
 
 @keyframes glow {
-    0% { filter: brightness(1) drop-shadow(0 0 5px currentColor); }
-    50% { filter: brightness(1.5) drop-shadow(0 0 15px currentColor); }
-    100% { filter: brightness(1) drop-shadow(0 0 5px currentColor); }
+    0% { filter: drop-shadow(0 0 5px currentColor); }
+    50% { filter: drop-shadow(0 0 10px currentColor); }
+    100% { filter: drop-shadow(0 0 5px currentColor); }
 }
 
 @keyframes pulse {
@@ -660,11 +659,11 @@ button {
 
 @keyframes ornamentGlow {
     0%, 100% {
-        filter: brightness(1);
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
         transform: scale(1);
     }
     50% {
-        filter: brightness(1.5);
+        filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
         transform: scale(1.1);
     }
 }
