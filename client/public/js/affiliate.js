@@ -77,9 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
         referralCountEl.textContent = userData.referrals;
         totalEarningsEl.textContent = userData.earnings;
         
-        // Create referral link
-        const baseUrl = window.location.origin;
-        const referralLink = `${baseUrl}?ref=${userData.referralCode}`;
+        // Create referral link using the Telegram bot URL
+        const botUrl = 'https://t.me/TheGoldenGlow_bot';
+        const referralLink = `${botUrl}?start=${userData.referralCode}`;
         affiliateLink.value = referralLink;
     }
 
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Share on Telegram functionality
     shareTelegramBtn.addEventListener('click', () => {
-        const text = `Join me on Golden Glow and embark on a mystical journey of games and rewards! Use my link to start your adventure: ${affiliateLink.value}`;
+        const text = `Join me on Golden Glow, a mystical Telegram Mini App with exciting games and rewards! Use my referral link to get a welcome bonus: ${affiliateLink.value}`;
         
         if (tg) {
             tg.shareData({
@@ -188,8 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to check and process referral code from URL
     function processReferralCode() {
+        // Check for start parameter (Telegram bot deep linking)
         const urlParams = new URLSearchParams(window.location.search);
-        const refCode = urlParams.get('ref');
+        const refCode = urlParams.get('start') || urlParams.get('ref'); // Support both formats
         
         if (refCode && tg?.initDataUnsafe?.user) {
             // Send referral data to server
