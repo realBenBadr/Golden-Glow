@@ -16,6 +16,16 @@ const telegramAuth = require('./middleware/telegramAuth');
 // Create Express app
 const app = express();
 
+// CRITICAL: Direct minimal health check that doesn't rely on other components
+// This ensures Railway health checks can succeed immediately
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    message: 'Server is starting up'
+  });
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -56,7 +66,8 @@ app.use('/assets', express.static(path.join(__dirname, '../client/public/assets'
 
 // API routes
 app.use('/api/telegram', telegramRoutes);
-app.use('/api/health', healthRoutes);
+// Notice we comment out the standard health routes to avoid conflicts with our direct route
+// app.use('/api/health', healthRoutes);
 app.use('/api/protected', protectedRoutes);
 
 // Main route

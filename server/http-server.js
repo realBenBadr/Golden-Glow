@@ -17,6 +17,13 @@ const { connectToDatabase, getDatabaseStatus } = require('./config/database');
 const PORT = process.env.PORT || 3000;
 const FALLBACK_PORTS = [3001, 3002, 3003, 8080];
 
+// Output environment info for debugging
+console.log('=== STARTUP INFO ===');
+console.log(`Node Environment: ${process.env.NODE_ENV || 'development'}`);
+console.log(`Node Version: ${process.version}`);
+console.log(`Platform: ${process.platform}`);
+console.log('===================');
+
 // Create HTTP server
 const server = http.createServer(app);
 
@@ -29,34 +36,40 @@ const io = require('socket.io')(server, {
 });
 
 // Set up Socket.IO handlers
-socketHandler(io);
+try {
+  console.log('Setting up Socket.IO handlers...');
+  socketHandler(io);
+  console.log('Socket.IO handlers initialized.');
+} catch (error) {
+  console.warn('Failed to initialize Socket.IO handlers:', error.message);
+  // Continue anyway - this shouldn't stop the server from starting
+}
 
 // Function to try starting the server on different ports
 async function tryStartServer(port, attempt = 0) {
   try {
-    // Start the HTTP server first to ensure health checks respond quickly
+    // CRITICAL: Start the HTTP server immediately
     server.listen(port, () => {
-      console.log(`[${process.env.NODE_ENV || 'development'}] HTTP server running on port ${port}`);
-      console.log(`Server available at http://localhost:${port}`);
+      console.log(`SUCCESS: Server is now listening on port ${port}`);
       console.log(`Health check endpoint: http://localhost:${port}/api/health`);
-    });
-    
-    // Connect to MongoDB after server is listening
-    console.log('Connecting to MongoDB...');
-    const dbConnection = await connectToDatabase().catch(err => {
-      console.warn('⚠️ Failed to connect to MongoDB, server will run with limited functionality');
-      console.error('Database connection error:', err.message);
-      return null;
-    });
-    
-    if (dbConnection) {
-      const dbStatus = getDatabaseStatus();
-      console.log(`✅ MongoDB connected to ${dbStatus.database} at ${dbStatus.host}:${dbStatus.port}`);
       
-      // Make database connection available to socket.io for use in handlers
-      io.db = dbConnection;
-      console.log(`Database status: http://localhost:${port}/api/health/database`);
-    }
+      // After server is started, try to connect to MongoDB in the background
+      console.log('Starting database connection in background...');
+      connectToDatabase()
+        .then(dbConnection => {
+          if (dbConnection) {
+            const dbStatus = getDatabaseStatus();
+            console.log(`✅ MongoDB connected to ${dbStatus.database}`);
+            io.db = dbConnection;
+          } else {
+            console.warn('⚠️ Database connection not established. Some features may be limited.');
+          }
+        })
+        .catch(err => {
+          console.warn('⚠️ Database connection error:', err.message);
+          console.log('Server will continue running with limited functionality.');
+        });
+    });
     
     // Handle server errors
     server.on('error', (error) => {
@@ -83,4 +96,5 @@ async function tryStartServer(port, attempt = 0) {
 }
 
 // Start the server
+console.log('Starting server...');
 tryStartServer(PORT); 
