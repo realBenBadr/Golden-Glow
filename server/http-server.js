@@ -8,6 +8,7 @@
 
 require('dotenv').config();
 const http = require('http');
+const express = require('express');
 const app = require('./app');
 const socketHandler = require('./socket-handler');
 const { connectToDatabase, getDatabaseStatus } = require('./config/database');
@@ -33,26 +34,29 @@ socketHandler(io);
 // Function to try starting the server on different ports
 async function tryStartServer(port, attempt = 0) {
   try {
-    // Connect to MongoDB first
-    const dbConnection = await connectToDatabase();
+    // Start the HTTP server first to ensure health checks respond quickly
+    server.listen(port, () => {
+      console.log(`[${process.env.NODE_ENV || 'development'}] HTTP server running on port ${port}`);
+      console.log(`Server available at http://localhost:${port}`);
+      console.log(`Health check endpoint: http://localhost:${port}/api/health`);
+    });
     
-    if (!dbConnection) {
-      console.warn('⚠️ Failed to connect to MongoDB, server will start with limited functionality');
-    } else {
+    // Connect to MongoDB after server is listening
+    console.log('Connecting to MongoDB...');
+    const dbConnection = await connectToDatabase().catch(err => {
+      console.warn('⚠️ Failed to connect to MongoDB, server will run with limited functionality');
+      console.error('Database connection error:', err.message);
+      return null;
+    });
+    
+    if (dbConnection) {
       const dbStatus = getDatabaseStatus();
       console.log(`✅ MongoDB connected to ${dbStatus.database} at ${dbStatus.host}:${dbStatus.port}`);
       
       // Make database connection available to socket.io for use in handlers
       io.db = dbConnection;
-    }
-    
-    // Start the HTTP server
-    server.listen(port, () => {
-      console.log(`[${process.env.NODE_ENV || 'development'}] HTTP server running on port ${port}`);
-      console.log(`Server available at http://localhost:${port}`);
-      console.log(`Health check endpoint: http://localhost:${port}/api/health`);
       console.log(`Database status: http://localhost:${port}/api/health/database`);
-    });
+    }
     
     // Handle server errors
     server.on('error', (error) => {
